@@ -8,7 +8,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 
 from base_model import MyNet
-from get_dataset import get_fashion_mnist_dataset, partition_data_dirichlet
+from get_dataset import get_fashion_mnist_dataset, partition_data_dirichlet, plot_client_class_distribution
 from attack import sign_flip_attack, ALIE_attack, FOE_attack
 from defense import coordinateWiseMedianDefense, krum, coordinateWiseTrimmedMeanDefense, NNM_pre_agg
 
@@ -136,6 +136,9 @@ if __name__ == "__main__":
             client_train_dataLoaders.append(_train_loader)
     else:
         client_data_indices_dirichlet = partition_data_dirichlet(train_set, client_num, alpha)
+
+        # plot distribution
+        plot_client_class_distribution(client_data_indices_dirichlet, train_set, client_num, 'dirichlet')
         for i in range(client_num):    
             _train_dataset = torch.utils.data.Subset(
                 train_set,
