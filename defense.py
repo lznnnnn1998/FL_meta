@@ -44,13 +44,13 @@ def coordinateWiseTrimmedMeanDefense(client_models, malicious_user_num):
     indices = torch.argsort(norm_list)
     assert 2 * f < len(client_models)
     remained_indices = indices[f:-f]
-    vec_median_params = torch.mean(vectorized_params[:, remained_indices], dim=-1)
+    vec_mean_params = torch.mean(vectorized_params[:, remained_indices], dim=-1)
     index = 0
     averaged_params = client_models[0].state_dict()
     for k, params in averaged_params.items():
-        median_params = vec_median_params[index : index + params.numel()].view(params.size())
+        mean_params = vec_mean_params[index : index + params.numel()].view(params.size())
         index += params.numel()
-        averaged_params[k] = median_params
+        averaged_params[k] = mean_params
     return averaged_params
 
 def coordinateWiseMedianDefense(client_models):

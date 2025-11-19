@@ -56,6 +56,7 @@ def plot_client_class_distribution(client_data_indices, dataset, num_clients, me
     plt.tight_layout()
     plt.show()
     plt.savefig(f'/home/FL_meta/data_distribution_{method_name}.png')
+    plt.clf()
 
 def get_fashion_mnist_dataset(transform):
     train_dataset = datasets.FashionMNIST(
@@ -65,7 +66,6 @@ def get_fashion_mnist_dataset(transform):
         transform=transform
     )
     
-    # 下载测试集
     test_dataset = datasets.FashionMNIST(
         root='./data',
         train=False,
